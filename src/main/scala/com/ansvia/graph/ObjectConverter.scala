@@ -106,7 +106,7 @@ object ObjectConverter extends Log {
         val pv = pc.getProperty[String](CLASS_PROPERTY_NAME)
         if( pv != null ){
             val cpn = pv.toString
-            val c = Class.forName(cpn)
+            val c: Class[_] = Thread.currentThread().getContextClassLoader().loadClass(cpn)
             if (tag.runtimeClass.isAssignableFrom(c))
                 Some(c)
             else
